@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Concert+One&display=swap');
+
+body{
+    font-family: 'Concert One', cursive;
+}
+
+img{
+    width: 50px;
+    margin-left: 5px;
+}
+
+.title{
+    color: #4a4a4a;
+}
+
+.cotizacion{
+    color: #132a56;
+}
+
+.containerTitle{
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    grid-template-rows: 50px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #faebeb;
+    border-radius: 15px;
+}
+
+.titleItemCompra{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.titleItemVenta{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.containerCotizacion{
+    margin-top: 5px;
+    display:grid;
+    grid-template-columns: 10% 10% 40% 20% 20%;
+    grid-template-rows: 50px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #faebeb;
+    border-radius: 15px;
+}
+
+
+li{
+    list-style-type: none;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 300px 40px 200px;
+}
