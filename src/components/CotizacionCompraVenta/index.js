@@ -1,13 +1,14 @@
 import api from '../../services/api';
 import React, {Component} from 'react';
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 import '../../pages/pizarra/styles.css';
 
 
 export default class CotizacionCompraVenta extends Component{
     state = {
         cotizaciones: [],
-        compraVenta: []
+        compraVenta: [],
+        prueba: 0
     }
 
     componentDidMount(){
@@ -48,27 +49,20 @@ export default class CotizacionCompraVenta extends Component{
 
     render(){
         var {compraVenta} = this.state;
-
-        const container = {
-            hidden: {
-                x: -500,
-                opacity: 0
-            },
-            visible: {
-                x: 0, 
-                opacity: 1,
-                transition: {
-                    staggerChildren: 5,
-                }
-            }
-        };
-
-        const monedaitem = {
-            hidden: {x: -500, opacity: 0},
-            visible:{
-                x: 0,
-                opacity: 1
-            }
+        var prueba = 0;
+        if(prueba === 0){
+            setTimeout(
+                ()=>(
+                    this.setState({prueba: 1}),
+                    setTimeout(
+                        ()=>(
+                            this.setState({prueba: 0})
+                        ),
+                        6000
+                    )
+                ),
+                2000
+            );
         }
 
         return(
@@ -78,19 +72,25 @@ export default class CotizacionCompraVenta extends Component{
                         <p className="titleItemCompra title">Compra</p>
                         <p className="titleItemVenta title">Venta</p>
                     </div>
-                    <motion.div variants={container} initial="hidden" animate="visible">
                         {compraVenta.map(moneda => (
-                            <motion.div variants={monedaitem}>
-                                <div className="containerCotizacion" key={`moneda${moneda.orden}`}>
-                                    <img src={`img/${moneda.monImg}`} alt={`Imagen ${moneda.orden}`}/>
-                                    <p className="cotizacion">{moneda.monISO}</p>
-                                    <p className="cotizacion">{moneda.monISOnom}</p>
-                                    <p className="cotizacion">{moneda.cpa}</p>
-                                    <p className="cotizacion">{moneda.vta}</p>
-                                </div>
-                            </motion.div>
+                            <AnimatePresence>
+                                {(prueba) && (
+                                    <motion.div
+                                        initial={{x: -200, opacity: 0}}
+                                        animate={{x: 0, opacity: 1}}
+                                        exit={{opacity: 0, x: 200}}
+                                    >
+                                        <div className="containerCotizacion" key={`moneda${moneda.orden}`}>
+                                            <img src={`img/${moneda.monImg}`} alt={`Imagen ${moneda.orden}`}/>
+                                            <p className="cotizacion">{moneda.monISO}</p>
+                                            <p className="cotizacion">{moneda.monISOnom}</p>
+                                            <p className="cotizacion">{moneda.cpa}</p>
+                                            <p className="cotizacion">{moneda.vta}</p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         ))}
-                    </motion.div>
                 </div>
             </div>
         );
